@@ -18,10 +18,7 @@ router.post('/', function(req, res, next) {
   request(verificationUrl,function(error,response,body) {
     body = JSON.parse(body);
     if(body.success !== undefined && !body.success) {
-              res.render('index', { error : " Please use reCAPTCHA "});
-    }
-      else {
-    function validUNI (acc) {
+              function validUNI (acc) {
         if (acc.split(" ").length > 51) {res.render('index', { error : " Max input 50 UNIPROT Accesion numbers at a time!" })}
        if (acc.search(/[^A-Z,0-9 ]/gm) === -1 ) {console.log('good')}
         else {res.render('index', { error : " Invalid input - Please submit SPACE seperated valid UNIPROT Accession numbers " })}
@@ -38,8 +35,13 @@ var job = queue.create('grab', {
     job.on('complete', function(id){
   res.sendFile(path.join(__dirname, '../output.csv'))
     })
-}}})});
+}
+    }
+      else {
+          res.render('index', { error : " Please use reCAPTCHA "});
+    }})});
 
 
 
 module.exports = router;
+
