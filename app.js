@@ -15,6 +15,7 @@ var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_chec
 client.auth(redisURL.auth.split(":")[1]);
 
 //kue
+kue.createQueue({ redis: process.env.REDIS_URL });
 var kue = require('kue');
 var queue = kue.createQueue();
 
