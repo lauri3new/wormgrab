@@ -101,6 +101,7 @@ function getGO(WID, y) {
 
 //function map protein ACCs joined as space seperated string to WIDs, push WIDs to outarr and callback getDesc
 function mapWBID(ACCs) {
+    console.log('helo');
     request.get({
             url: 'http://www.uniprot.org/mapping/',
             qs: {
