@@ -26,10 +26,6 @@ var job = queue.create('grab', {
         console.log(errorMessage);
   res.render('index', { error : " Server Error - please try again later. Make sure inputs are valid UNIPROT Accession numbers "});});
     job.on('complete', function(id){
-  kue.Job.get(id, function(err, job) {
-    job.remove();
-  })
-        
   res.sendFile(path.join(__dirname, '../output.csv'))
 })});
 
