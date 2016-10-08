@@ -11,13 +11,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+    console.log(req.body['g-recaptcha-response']);
     var secretKey = "6LcbuwgUAAAAAHysajJdopn-S-ctHWDHFHaJVcwy";
   var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
   // Hitting GET request to the URL, Google will respond with success or error scenario.
   request(verificationUrl,function(error,response,body) {
     body = JSON.parse(body);
     if(body.success !== undefined && !body.success) {
-              res.render('index', { error : " PLeace use reCAPTCHA "});
+              res.render('index', { error : " Please use reCAPTCHA "});
     }
       else {
     function validUNI (acc) {
