@@ -139,7 +139,7 @@ function mapWBID(ACCs) {
 //write output csv
 function writeCSV(arr) {
     console.log('e');
-    fs.writeFile('output.csv', baby.unparse(outarr), function(results) {
+    fs.writeFile('/public/output.csv', baby.unparse(outarr), function(results) {
         finished();
     });
 }
