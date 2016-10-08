@@ -12,16 +12,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
    var ACCs = req.body.ACC;
-              function validUNI (acc) {
-        if (acc.split(" ").length > 51) {res.render('index', { error : " Max input 50 UNIPROT Accesion numbers at a time!" })}
-       if (acc.search(/[^A-Z,0-9 ]/gm) === -1 ) {console.log('good')}
-        else {res.render('index', { error : " Invalid input - Please submit SPACE seperated valid UNIPROT Accession numbers " })}
-        
-    
-    validUNI(ACCs);
-
-var job = queue.create('grab', {
-    ACC : ACCs
+    validUNI(req.body.ACC);
+              function validUNI (str) {
+        if (str.split(" ").length > 51) {res.render('index', { error : " Max input 50 UNIPROT Accesion numbers at a time!" })}
+       if (str.search(/[^A-Z,0-9 ]/gm) === -1 ) {
+           var job = queue.create('grab', {
+    ACC : str
 }).save();
     job.on('failed', function(errorMessage){
         console.log(errorMessage);
@@ -30,7 +26,8 @@ var job = queue.create('grab', {
   res.sendFile(path.join(__dirname, '../output.csv'))
     })
 }
-});
+        else {res.render('index', { error : " Invalid input - Please submit SPACE seperated valid UNIPROT Accession numbers " })};
+}});
 
 
 
