@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    console.log(req);
+   var ACCs = req.body.ACC;
     var secretKey = "6LcbuwgUAAAAAHysajJdopn-S-ctHWDHFHaJVcwy";
   var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
   // Hitting GET request to the URL, Google will respond with success or error scenario.
@@ -24,10 +24,10 @@ router.post('/', function(req, res, next) {
         else {res.render('index', { error : " Invalid input - Please submit SPACE seperated valid UNIPROT Accession numbers " })}
         
     
-    validUNI(req.body.ACC);
+    validUNI(ACCs);
 
 var job = queue.create('grab', {
-    ACC : req.body.ACC
+    ACC : ACCs
 }).save();
     job.on('failed', function(errorMessage){
         console.log(errorMessage);
