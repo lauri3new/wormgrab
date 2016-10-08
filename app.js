@@ -8,6 +8,7 @@ var grab = require('./grab.js');
 var kue = require('kue');
 
 //connect to redis 
+if (typeof process.env.REDIS_URL !== 'undefined' ) {
 var redis = require('redis');
 var url = require('url');
 var client = require('redis').createClient(process.env.REDIS_URL);
@@ -20,7 +21,7 @@ kue.redis.createClient = function() {
         client.auth(redisUrl.auth.split(":")[1]);
     }
     return client;
-};
+};};
 
 var queue = kue.createQueue();
 
