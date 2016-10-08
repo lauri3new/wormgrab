@@ -5,8 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var grab = require('./grab.js');
-var kue = require('kue');
-var queue = kue.createQueue();
+
 
 //connect to redis 
 var redis = require('redis');
@@ -14,6 +13,10 @@ var url = require('url');
 var redisURL = url.parse(process.env.REDIS_URL);
 var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
 client.auth(redisURL.auth.split(":")[1]);
+
+//kue
+var kue = require('kue');
+var queue = kue.createQueue();
 
 queue.process('grab', function(job, done){
     grab(job.data.ACC, done)
