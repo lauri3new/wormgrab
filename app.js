@@ -28,6 +28,8 @@ queue.process('grab', function(job, done){
     grab(job.data.ACC, done)
 });
 
+queue.removeOnComplete( true ).save()
+
 queue.on( 'error', function( err ) {
   console.log( 'Oops... ', err );
 });

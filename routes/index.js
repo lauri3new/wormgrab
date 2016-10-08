@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
 
 var job = queue.create('grab', {
     ACC : req.body.ACC
-}).removeOnComplete( true ).save();
+}).save();
     job.on('failed', function(errorMessage){
         console.log(errorMessage);
   res.render('index', { error : " Server Error - please try again later. Make sure inputs are valid UNIPROT Accession numbers "});});
