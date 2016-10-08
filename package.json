@@ -2,6 +2,9 @@
   "name": "WRMGRAB",
   "version": "0.0.0",
   "private": true,
+    "engines" : {
+    "node": "4.4.0"
+  }
   "scripts": {
   "start": "supervisor ./bin/www"
   },
