@@ -28,7 +28,6 @@ var job = queue.create('grab', {
     job.on('complete', function(id){
   res.sendFile(path.join(__dirname, '../output.csv'))
     })
-job.removeOnComplete( true );
 });
 
 
