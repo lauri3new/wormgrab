@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var grab = require('./grab.js');
-
+var kue = require('kue');
 
 //connect to redis 
 var redis = require('redis');
@@ -16,14 +16,14 @@ client.auth(redisURL.auth.split(":")[1]);
 
 //kue
 kue.redis.createClient = function() {
-    var redisUrl = url.parse(process.env.REDISTOGO_URL)
+    var redisUrl = url.parse(process.env.REDIS_URL)
       , client = redis.createClient(redisUrl.port, redisUrl.hostname);
     if (redisUrl.auth) {
         client.auth(redisUrl.auth.split(":")[1]);
     }
     return client;
 };
-var kue = require('kue');
+
 var queue = kue.createQueue();
 
 queue.process('grab', function(job, done){
