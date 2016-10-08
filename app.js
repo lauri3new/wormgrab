@@ -10,7 +10,7 @@ var kue = require('kue');
 var queue = kue.createQueue();
 
 //connect to redis 
-var client = require('redis').createClient(process.env.REDIS_URL);
+console.log(process.env.REDIS_URL);
 
 queue.process('grab', function(job, done){
     grab(job.data.ACC, done)
