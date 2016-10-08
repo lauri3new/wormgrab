@@ -11,6 +11,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+    var secretKey = "6LcbuwgUAAAAAHysajJdopn-S-ctHWDHFHaJVcwy";
+     // req.connection.remoteAddress will provide IP address of connected user.
+  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  // Hitting GET request to the URL, Google will respond with success or error scenario.
+  request(verificationUrl,function(error,response,body) {
+    body = JSON.parse(body);
+    if(body.success !== undefined && !body.success) {
+              res.render('index', { error : " Please use reCAPTCHA" });
+    }
+      else {
    var ACCs = req.body.ACC;
     validUNI(req.body.ACC);
               function validUNI (str) {
@@ -27,7 +37,11 @@ router.post('/', function(req, res, next) {
     })
 }
         else {res.render('index', { error : " Invalid input - Please submit SPACE seperated valid UNIPROT Accession numbers " })};
-}});
+}}})});
+
+router.post('/ok', function(req, res, next) {
+    console.log(req.body['g-recaptcha-response']);
+});
 
 
 

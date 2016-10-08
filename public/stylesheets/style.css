@@ -8,7 +8,9 @@ a {
 }
 
 .heading {
-    padding-bottom: 50px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid grey;
+     border-top: 1px solid grey;
 }
 
 .link {
@@ -17,6 +19,6 @@ a {
 
 #lnew {
     position: absolute;
-    right: 25px;
+    right: 40px;
     top: 5px;
 }
