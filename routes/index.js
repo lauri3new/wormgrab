@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.post('/p', function(req, res, next) {
+router.post('/', function(req, res, next) {
     function validUNI (acc) {
         if (acc.split(" ").length > 200) {res.render('index', { error : " Max input 200 UNIPROT Accesion numbers at a time!" })}
        if (acc.search(/[^A-Z,0-9 ]/gm) === -1 ) {console.log('good')}
