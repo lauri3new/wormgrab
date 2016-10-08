@@ -24,6 +24,16 @@ kue.redis.createClient = function() {
 
 var queue = kue.createQueue();
 
+queue.on('job complete', function(id, result){
+  kue.Job.get(id, function(err, job){
+    if (err) return;
+    job.remove(function(err){
+      if (err) throw err;
+      console.log('removed completed job #%d', job.id);
+    });
+  });
+});
+
 queue.process('grab', function(job, done){
     grab(job.data.ACC, done)
 });
