@@ -22,13 +22,11 @@ kue.redis.createClient = function() {
     return client;
 };
 
-var queue = kue.createQueue();
+var queue = kue.createQueue().removeOnComplete( true ).save();
 
 queue.process('grab', function(job, done){
     grab(job.data.ACC, done)
 });
-
-queue.removeOnComplete( true ).save()
 
 queue.on( 'error', function( err ) {
   console.log( 'Oops... ', err );
