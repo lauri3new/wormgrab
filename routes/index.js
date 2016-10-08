@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var kue = require('kue')
-var queue = kue.createQueue().removeOnComplete( true ).save();
+var queue = kue.createQueue();
 var path = require('path');
 var request = require('request');
 
