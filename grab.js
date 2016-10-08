@@ -34,6 +34,7 @@ function getDesc(WID, y) {
         if (error) {
             console.log(error);
         } else {
+            console.log('b');
             outarr[y].push(body.fields.concise_description.data.text);
             getReagents(WID, y);
         }
@@ -53,6 +54,7 @@ function getReagents(WID, y) {
         if (error) {
             console.log(error);
         } else {
+            console.log('c');
             var labelConstructs = '';
             var abDescs = '';
             for (var key in body.fields.transgene_products.data) {
@@ -83,6 +85,7 @@ function getGO(WID, y) {
             console.log(error);
         } else {
             for (var key in body.fields.gene_ontology_summary.data) {
+                console.log('d');
                 var terms = '';
                 for (var i = 0; i < body.fields.gene_ontology_summary.data[key].length; i++) {
                     terms += body.fields.gene_ontology_summary.data[key][i].term_description[0]['label'] + ', ';
@@ -124,6 +127,7 @@ function mapWBID(ACCs) {
 	newline: "\n", quotes:'false',
                   complete: function(results) {
                      for (i = 1; i < results.data.length - 1; i++) {
+                        console.log('a');
                       outarr.push(results.data[i]);
                       outarr[i].push(results.data[i][1]);
                       getDesc(results.data[i][1],i);
@@ -135,6 +139,7 @@ function mapWBID(ACCs) {
 
 //write output csv
 function writeCSV(arr) {
+    console.log('e');
     fs.writeFile('output.csv', baby.unparse(outarr), function(results) {
         finished();
     });
