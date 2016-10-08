@@ -22,7 +22,7 @@ kue.redis.createClient = function() {
     return client;
 };
 
-var queue = kue.createQueue().removeOnComplete( true ).save();
+var queue = kue.createQueue();
 
 queue.process('grab', function(job, done){
     grab(job.data.ACC, done)
