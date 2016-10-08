@@ -10,9 +10,7 @@ var kue = require('kue');
 //connect to redis 
 var redis = require('redis');
 var url = require('url');
-var redisURL = url.parse(process.env.REDIS_URL);
-var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
-client.auth(redisURL.auth.split(":")[1]);
+var client = require('redis').createClient(process.env.REDIS_URL);
 
 //kue
 kue.redis.createClient = function() {
