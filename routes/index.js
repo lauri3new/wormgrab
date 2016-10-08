@@ -12,12 +12,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
    var ACCs = req.body.ACC;
-    var secretKey = "6LcbuwgUAAAAAHysajJdopn-S-ctHWDHFHaJVcwy";
-  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-  // Hitting GET request to the URL, Google will respond with success or error scenario.
-  request(verificationUrl,function(error,response,body) {
-    body = JSON.parse(body);
-    if(body.success !== undefined && !body.success) {
               function validUNI (acc) {
         if (acc.split(" ").length > 51) {res.render('index', { error : " Max input 50 UNIPROT Accesion numbers at a time!" })}
        if (acc.search(/[^A-Z,0-9 ]/gm) === -1 ) {console.log('good')}
@@ -36,10 +30,7 @@ var job = queue.create('grab', {
   res.sendFile(path.join(__dirname, '../output.csv'))
     })
 }
-    }
-      else {
-          res.render('index', { error : " Please use reCAPTCHA "});
-    }})});
+});
 
 
 
