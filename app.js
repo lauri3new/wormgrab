@@ -4,9 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var grab = require('./grab.js');
+var redis = require('redis');
 var kue = require('kue');
 var queue = kue.createQueue();
-var grab = require('./grab.js');
 
 //connect to redis 
 var client = require('redis').createClient(process.env.REDIS_URL);
