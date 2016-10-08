@@ -1,0 +1,22 @@
+body {
+  padding: 50px;
+  font-family: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.heading {
+    padding-bottom: 50px;
+}
+
+.link {
+    cursor: pointer !important;
+}
+
+#lnew {
+    position: absolute;
+    right: 25px;
+    top: 5px;
+}

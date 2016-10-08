@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WormGRAB</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
+<div class ="row"><div id="lnew"><h5>Created by Laurence Newman</h5></div></div>
+    <div class="row heading">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 Title"><a href="/"><H1>WormGRAB - Go terms, Related info and Anti-Bodies</H1></a></div>
+        <div class="col-sm-3"></div>
+    </div>
+      <div id="alerts">
+    {{#if error}}
+<div class="alert alert-danger">{{error}}</div>
+{{/if}}
+      </div>
+    <div class ="row"> <form id="form1" action="p" method="post">
+<div class="col-sm-2"></div><label for="protospacer" class="col-xs-4 col-form-label">Input Space Seperated Uniprot Accessions: </label></div>
+        </div><div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+        <textarea maxlength="2500" class="form-control" placeholder="e.g. Q09308 O17811" value="" name="ACC" rows="10"></textarea>
+        </div>
+        <div class="col-sm-2"></div>
+        </div><br><div class="row"><div class="col-xs-8"></div>
+<button type="submit" form="form1" class="btn btn-primary">Submit!</button>
+        </div>
+      </form></div></div>
+    <script type="application/javascript" src="/javascripts/validate.js"></script>
+  </body>
+</html>
+
