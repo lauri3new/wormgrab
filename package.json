@@ -21,6 +21,7 @@
     "request": "*",
     "serve-favicon": "~2.3.0",
     "supervisor": "*",
-    "url" : "*"
+    "url" : "*",
+    "babyparse" : "*"
   }
 }
