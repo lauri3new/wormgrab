@@ -12,13 +12,15 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
    var ACCs = req.body.ACC;
     var inputGene = req.body.igene;
-    console.log(inputGene);
-    validUNI(req.body.ACC);
-              function validUNI (str) {
-        if (str.split(" ").length > 51) {res.render('index', { error : " Max input 50 UNIPROT Accesion numbers at a time!" })}
-       if (str.search(/[^A-Z,0-9 ]/gm) === -1 ) {
-           console.log('grabcalled');
-
+    if (ACCs === 'undefined' || inputGene === 'undefined') {
+      {res.render('index', { error : " Please provide bait and prey accessions" })}
+    }
+    if (ACCs.split(" ").length > 51) {res.render('index', { error : " Max input 50 UNIPROT Accesion numbers at a time!" })}
+    validUNI(ACCs);
+    validUNI(inputGene);
+      function validUNI (str) {
+       if (str.search(/[^A-Z,0-9 ]/gm) !== -1 ) {
+        res.render('index', { error : "Please enter valid uniprot accession Ids" });
          }};
     grab(req.body.igene, req.body.ACC, res, () => {
       res.sendFile(path.join(__dirname, '../output.csv'));
