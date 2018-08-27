@@ -20,8 +20,8 @@ router.post('/', function(req, res, next) {
            console.log('grabcalled');
 
          }};
-    grab(req.body.ACC, res, () => {
-      res.sendFile('../output.csv');
+    grab(req.body.igene, req.body.ACC, res, () => {
+      res.sendFile(path.join(__dirname, '../output.csv'));
     });
 });
 
