@@ -1,3 +1,4 @@
+'use strict';
 //module.exports = function(inputstring , igene , done) {
 var request = require('request');
 var baby = require('babyparse');
@@ -87,7 +88,7 @@ function getPoiDetails(poi, ACCS, res, cb) {
                         } else {
                             var orthologs = "";
                             if (body.fields.nematode_orthologs.data) {
-                            for (i = 0; i < body.fields.nematode_orthologs.data.length; i++) {
+                            for (let i = 0; i < body.fields.nematode_orthologs.data.length; i++) {
                                 if (body.fields.nematode_orthologs.data[i].ortholog.taxonomy == 'h_sapiens') {
                             orthologs += body.fields.nematode_orthologs.data[i].ortholog.label + ", ";
                                 }
@@ -153,7 +154,7 @@ function mapWBID(ACCs) {
                 baby.parse(body, {delimiter: "\t",
 	newline: "\n", quotes:'false',
                   complete: function(results) {
-                     for (i = 1; i < results.data.length - 1; i++) {
+                     for (let i = 1; i < results.data.length - 1; i++) {
                       outarr.push(results.data[i]);
                         searcharr.push([]);
                         // console.log(results.data[i][1]);
@@ -207,7 +208,7 @@ function getHomology(WID, y) {
         } else {
             var orthologs = "";
             if (body.fields.nematode_orthologs.data) {
-            for (i = 0; i < body.fields.nematode_orthologs.data.length; i++) {
+            for (let i = 0; i < body.fields.nematode_orthologs.data.length; i++) {
                 if (body.fields.nematode_orthologs.data[i].ortholog.taxonomy == 'h_sapiens') {
             searcharr[y+1].push(body.fields.nematode_orthologs.data[i].ortholog.label);
             orthologs += body.fields.nematode_orthologs.data[i].ortholog.label + ", ";
