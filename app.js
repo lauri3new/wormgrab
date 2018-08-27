@@ -4,34 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var grab = require('./grab.js');
-var kue = require('kue');
-
-//connect to redis 
-if (typeof process.env.REDIS_URL !== 'undefined' ) {
-var redis = require('redis');
-var url = require('url');
-var client = require('redis').createClient(process.env.REDIS_URL);
-
-//kue
-kue.redis.createClient = function() {
-    var redisUrl = url.parse(process.env.REDIS_URL)
-      , client = redis.createClient(redisUrl.port, redisUrl.hostname);
-    if (redisUrl.auth) {
-        client.auth(redisUrl.auth.split(":")[1]);
-    }
-    return client;
-};};
-
-var queue = kue.createQueue();
-
-queue.process('grab', function(job, done){
-    grab(job.data.ACC, done)
-});
-
-queue.on( 'error', function( err ) {
-  console.log( 'Oops... ', err );
-});
+//connect to redis
 
 var routes = require('./routes/index');
 

@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var kue = require('kue')
-var queue = kue.createQueue();
 var path = require('path');
 var request = require('request');
+var grab = require('../grab');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,33 +10,20 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    var secretKey = "6LcbuwgUAAAAAHysajJdopn-S-ctHWDHFHaJVcwy";
-     // req.connection.remoteAddress will provide IP address of connected user.
-  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-  // Hitting GET request to the URL, Google will respond with success or error scenario.
-  request(verificationUrl,function(error,response,body) {
-    body = JSON.parse(body);
-    if(body.success !== undefined && !body.success) {
-              res.render('index', { error : " Please use reCAPTCHA" });
-    }
-      else {
    var ACCs = req.body.ACC;
+    var inputGene = req.body.igene;
+    console.log(inputGene);
     validUNI(req.body.ACC);
               function validUNI (str) {
         if (str.split(" ").length > 51) {res.render('index', { error : " Max input 50 UNIPROT Accesion numbers at a time!" })}
        if (str.search(/[^A-Z,0-9 ]/gm) === -1 ) {
-           var job = queue.create('grab', {
-    ACC : str
-}).save();
-    job.on('failed', function(errorMessage){
-        console.log(errorMessage);
-  res.render('index', { error : " Server Error - please try again later. Make sure inputs are valid UNIPROT Accession numbers "});});
-    job.on('complete', function(id){
-  res.sendFile(path.join(__dirname, '../output.csv'))
-    })
-}
-        else {res.render('index', { error : " Invalid input - Please submit SPACE seperated valid UNIPROT Accession numbers " })};
-}}})});
+           console.log('grabcalled');
+
+         }};
+    grab(req.body.ACC, res, () => {
+      res.sendFile('../output.csv');
+    });
+});
 
 router.post('/ok', function(req, res, next) {
     console.log(req.body['g-recaptcha-response']);
@@ -46,4 +32,3 @@ router.post('/ok', function(req, res, next) {
 
 
 module.exports = router;
-
